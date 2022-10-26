@@ -27,4 +27,4 @@ schema.set('toJSON', {
   virtuals: true
 });
 
-module.exports = model('users', schema);
+module.exports = model('User', schema);
