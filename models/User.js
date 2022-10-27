@@ -17,10 +17,6 @@ const schema = new Schema({
     type: String,
     require: true
   },
-  responseTime: {
-    type: String,
-    require: false
-  }
 });
 
 schema.set('toJSON', {
