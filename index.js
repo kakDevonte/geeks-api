@@ -12,6 +12,8 @@ app.use(
 );
 
 app.use(express.json({ extended: true }));
+app.use('/api/quest', require('./routes/quest.routes'));
+app.use('/api/users', require('./routes/user.routes'));
 
 async function start() {
     try {

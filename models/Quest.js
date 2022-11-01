@@ -1,16 +1,20 @@
 const { Schema, model } = require('mongoose');
 
 const schema = new Schema({
-    openApp: {
+    liveDate: {
+        type: String,
+        require: true
+    },
+    number: {
         type: Number,
         require: true
     },
-    winners: {
-        type: Number,
+    answers: {
+        type: [],
         require: true
     },
-    uniqueWinners: {
-        type: Number,
+    timezone: {
+        type: String,
         require: true
     },
 });
@@ -19,4 +23,4 @@ schema.set('toJSON', {
     virtuals: true
 });
 
-module.exports = model('stats', schema);
+module.exports = model('Quest', schema);

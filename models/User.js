@@ -17,6 +17,10 @@ const schema = new Schema({
     type: String,
     require: true
   },
+  link: {
+    type: String,
+    require: true
+  },
 });
 
 schema.set('toJSON', {

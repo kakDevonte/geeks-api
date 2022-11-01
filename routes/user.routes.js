@@ -15,8 +15,8 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const { id, firstName, lastName, timezone, responseTime } = req.body;
-        const user = new User({ id, firstName, lastName, timezone, responseTime });
+        const { id, firstName, lastName, timezone, link } = req.body;
+        const user = new User({ id, firstName, lastName, timezone, link });
         await user.save();
         res.status(201);
     } catch (e) {
