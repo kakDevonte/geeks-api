@@ -58,4 +58,22 @@ router.post('/is-answer', async (req, res) => {
     }
 });
 
+router.post('/is-win', async (req, res) => {
+    try {
+        const { liveDate, number, answer, timezone } = req.body;
+        const quest = await Quest.findOne({ liveDate: liveDate, number: number, timezone: timezone });
+        const isAnswer = quest.answers.some(user => user.id === answer.id);
+
+        if(isAnswer) {
+            res.status(201).json(true);
+
+        } else {
+            res.status(201).json(false);
+        }
+
+    } catch (e) {
+        res.status(500).json(e.message);
+    }
+});
+
 module.exports = router;
