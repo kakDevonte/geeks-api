@@ -16,6 +16,15 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/all', async (req, res) => {
+    try {
+        const quests = await Quest.find();
+        res.status(201).json(quests);
+    } catch (e) {
+        res.status(500).json(e.message);
+    }
+});
+
 router.post('/', async (req, res) => {
     try {
         const { liveDate, number, answers, timezone } = req.body;
@@ -29,7 +38,6 @@ router.post('/', async (req, res) => {
 
 router.put('/', async (req, res) => {
     try {
-        console.log(req.body);
         const { liveDate, number, answer, timezone } = req.body;
         const quest = await Quest.findOne({ liveDate: liveDate, number: number, timezone: timezone });
         quest.answers.push(answer);
@@ -42,12 +50,12 @@ router.put('/', async (req, res) => {
 
 router.post('/is-answer', async (req, res) => {
     try {
-        const { liveDate, number, answer, timezone } = req.body;
+        const { liveDate, number, id, timezone } = req.body;
         const quest = await Quest.findOne({ liveDate: liveDate, number: number, timezone: timezone });
-        const isAnswer = quest.answers.some(user => user.id === answer.id);
-
+        const isAnswer = quest.answers.some(user => user.id === id);
+        const user = quest.answers.find(user => user.id === id);
         if(isAnswer) {
-            res.status(201).json(true);
+            res.status(201).json({isAnswer, index: user.numberAns});
 
         } else {
             res.status(201).json(false);
@@ -60,15 +68,28 @@ router.post('/is-answer', async (req, res) => {
 
 router.post('/is-win', async (req, res) => {
     try {
-        const { liveDate, number, answer, timezone } = req.body;
+        const { liveDate, number, id, timezone } = req.body;
         const quest = await Quest.findOne({ liveDate: liveDate, number: number, timezone: timezone });
-        const isAnswer = quest.answers.some(user => user.id === answer.id);
 
-        if(isAnswer) {
-            res.status(201).json(true);
+        const user = quest.answers.find(user => user.id === id);
+        const isWin = user.correct;
 
+        quest.answers.sort((a, b) => a.timeAnswer.localeCompare(b.timeAnswer));
+
+        let result = quest.answers.filter(obj => {
+            return obj.correct === true
+        })
+
+        const winners = result.slice(0, 3);
+
+        const winner = winners.find(user => user.id === id);
+
+        if(winner) {
+            res.status(201).json('win');
+        } else if (isWin) {
+            res.status(201).json('so-close');
         } else {
-            res.status(201).json(false);
+            res.status(201).json('lose');
         }
 
     } catch (e) {

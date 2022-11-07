@@ -2,12 +2,12 @@ const { Schema, model } = require('mongoose');
 
 const schema = new Schema({
     timezone: {
-        type: String,
+        type: Number,
         require: true
     },
     openApp: {
         type: Number,
-        require: true
+        require: true,
     },
     uniqueWinners: {
         type: Number,

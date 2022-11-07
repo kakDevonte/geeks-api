@@ -13,7 +13,8 @@ app.use(
 
 app.use(express.json({ extended: true }));
 app.use('/api/quest', require('./routes/quest.routes'));
-app.use('/api/users', require('./routes/user.routes'));
+app.use('/api/user', require('./routes/user.routes'));
+app.use('/api/stats', require('./routes/stats.routes'));
 
 async function start() {
     try {

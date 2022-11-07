@@ -13,12 +13,21 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.get('/', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(201).json(users);
+    } catch (e) {
+        res.status(500).json(e.message);
+    }
+});
+
 router.post('/', async (req, res) => {
     try {
-        const { id, firstName, lastName, timezone, link } = req.body;
-        const user = new User({ id, firstName, lastName, timezone, link });
+        const { id, firstName, lastName, timezone } = req.body;
+        const user = new User({ id, firstName, lastName, timezone });
         await user.save();
-        res.status(201);
+        res.status(201).json(user);
     } catch (e) {
         res.status(500).json(e.message);
     }
