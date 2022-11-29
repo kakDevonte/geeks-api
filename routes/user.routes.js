@@ -8,8 +8,9 @@ router.get('/:id', async (req, res) => {
         const id = req.params.id;
         const user = await User.findOne({ id: id });
         res.status(201).json(user);
+        return;
     } catch (e) {
-        res.status(500).json(e.message);
+        res.status(200).json(e.message);
     }
 });
 
@@ -18,18 +19,20 @@ router.get('/', async (req, res) => {
         const users = await User.find();
         res.status(201).json(users);
     } catch (e) {
-        res.status(500).json(e.message);
+        res.status(200).json(e.message);
     }
 });
 
 router.post('/', async (req, res) => {
     try {
-        const { id, firstName, lastName, timezone } = req.body;
-        const user = new User({ id, firstName, lastName, timezone });
+        const { id, firstName, lastName, timezone, avatar } = req.body;
+        console.log(req.body);
+        const user = new User({ id, firstName, lastName, timezone, avatar });
         await user.save();
         res.status(201).json(user);
+        return;
     } catch (e) {
-        res.status(500).json(e.message);
+        res.status(200).json(e.message);
     }
 });
 
@@ -40,8 +43,9 @@ router.put('/', async (req, res) => {
         await User.updateOne({ id: id }, oldUser);
         const user = await User.findOne({ id: id });
         res.status(201).json(user);
+        return;
     } catch (error) {
-        res.status(500).json(error.message);
+        res.status(200).json(error.message);
     }
 });
 

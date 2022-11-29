@@ -17,6 +17,10 @@ const schema = new Schema({
         type: String,
         require: true
     },
+    isSentWinners: {
+        type: Boolean,
+        require: true
+    }
 });
 
 schema.set('toJSON', {

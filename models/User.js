@@ -17,7 +17,7 @@ const schema = new Schema({
     type: String,
     require: true
   },
-  link: {
+  avatar: {
     type: String,
     require: true
   },

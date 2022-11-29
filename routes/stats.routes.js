@@ -12,14 +12,16 @@ router.get('/:time', async (req, res) => {
                     openApp: stats.openApp + 1,
                 }
             );
-            res.status(201);
+            res.status(201).json({status: 'ok'});
+            return;
         } else {
             const stats =  new Stats({ timezone: time, openApp: 1 });
-            res.status(201);
+            res.status(201).json({status: 'ok'});;
             await stats.save();
+            return;
         }
     } catch (e) {
-        res.status(500).json(e.message);
+        res.status(200).json(e.message);
     }
 });
 
@@ -28,7 +30,7 @@ router.get('/', async (req, res) => {
         const stats = await Stats.find();
         res.status(201).json(stats);
     } catch (e) {
-        res.status(500).json(e.message);
+        res.status(200).json(e.message);
     }
 });
 

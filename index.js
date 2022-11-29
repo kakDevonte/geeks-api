@@ -1,15 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
+const app = express();
 require('dotenv').config();
 
-const app = express();
-app.use(
-    cors({
-        credentials: true,
-        origin: true,
-    })
-);
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Set-Cookie, X-XSRF-TOKEN, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT');
+    res.setHeader('Access-Control-Allow-Origin', "*"); //req.get('origin')
+    res.setHeader('Access-Control-Max-Age', 300);
+    next();
+});
+
+
 
 app.use(express.json({ extended: true }));
 app.use('/api/quest', require('./routes/quest.routes'));
