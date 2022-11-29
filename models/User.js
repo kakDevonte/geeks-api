@@ -3,7 +3,8 @@ const { Schema, model } = require('mongoose');
 const schema = new Schema({
   id: {
     type: Number,
-    require: true
+    require: true,
+    index: true,
   },
   firstName: {
     type: String,
