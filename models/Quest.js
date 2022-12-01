@@ -1,8 +1,8 @@
 const { Schema, model } = require('mongoose');
 
 const schema = new Schema({
-    liveDate: {
-        type: String,
+    liveNumber: {
+        type: Number,
         require: true
     },
     number: {
@@ -10,6 +10,10 @@ const schema = new Schema({
         require: true
     },
     answers: {
+        type: [],
+        require: true
+    },
+    winners: {
         type: [],
         require: true
     },
