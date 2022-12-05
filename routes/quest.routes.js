@@ -1,8 +1,5 @@
 const { Router } = require("express");
 const Quest = require("../models/Quest");
-const Winner = require("../models/Winners");
-const url = require("url");
-const querystring = require("querystring");
 const axios = require("axios");
 const FormData = require("form-data");
 
